@@ -1,28 +1,35 @@
 import React, {Component} from 'react';
+import Gif from './Gif';
 
 export default class GifList extends Component {
 	
 	render() {
-		let gifsElements;
-		if (this.props.setData.length > 0) {
-			console.log('проходит')
-			gifsElements = this.props.setData[0].data.map((gif, index)=>
-				<li key = {gif.id}> 
-					<p>{gif.id}</p>
-				</li>
-			)
+		console.log(this.props.setData);
+		console.log('сколько в массиве', this.props.setData.length);
+		console.log(window.screen.availWidth);
+		let screenWidth = window.screen.availWidth;
+		let imgWidth = 305;
+		let imgInScreen = Math.floor(screenWidth / imgWidth);
+		let howManyClasses = imgInScreen;
+		//let resultScreenWidth = imgInScreen * imgWidth - 5; // 5 - лишний margin
+		let gifClass = 'gif-container';
+		let imgInArray = this.props.setData.length;
+
+		let getGifClass=()=>{
+			console.log(document.querySelector('.gif-container__gif-item'));
+			
 		}
-		
-		const emptyWord = '';
-		let renderElement = this.props.setData.length > 0 ? gifsElements : emptyWord;
-		console.log('length', this.props.setData.length)
+		console.log(imgInScreen)
+
+
+		getGifClass()
 		return (
-			<ul>
-				{renderElement}
-				<p>ddddd</p>
-			</ul>
+			<div className={gifClass} >
+				<Gif setData={this.props.setData}/>
+			</div>
 		)
 	}
-
-	
+	componentDidMount() {
+		
+	}
 }

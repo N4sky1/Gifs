@@ -9,7 +9,7 @@ class App extends Component {
     data: [],
   };
 
-  getUrl = search => `https://cors-anywhere.herokuapp.com/` + `http://api.giphy.com/v1/gifs/search?q=${search}&api_key=0Hq9k7VDnzYAqDpFZYbLBtblsp20gugA&limit=25`;
+  getUrl = search => `http://api.giphy.com/v1/gifs/search?q=${search}&api_key=0Hq9k7VDnzYAqDpFZYbLBtblsp20gugA&limit=25`;
 
   getInputValue = () => document.querySelector('.input').value;
 
@@ -17,13 +17,11 @@ class App extends Component {
     const { data, searchedText } = this.state;
     return (
       <div className="App">
-        <div className="search-wrap">
-          <h1>Get your Gifs!</h1>
-          <Search
-            urlRequestText={searchedText}
-            handlePress={this.handlePress}
-            handleClick={this.handleClick} />
-        </div>
+        <h1>Get your Gifs!</h1>
+        <Search
+          urlRequestText={searchedText}
+          handlePress={this.handlePress}
+          handleClick={this.handleClick} />
         <GifList setData={data} />
       </div>
     );
