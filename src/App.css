@@ -12,12 +12,22 @@ html, body {
   list-style: none;
   display: flex;
   flex-wrap: wrap;
-  width: 100%;
+  justify-content: center;
 }
 
 .gif-container__gif-img {
   display: block;
-  width:100%;
-  object-fit: cover;
   width: 300px;
+
+}
+.gif-container li {
+  box-sizing: border-box;
+  margin-right: 4px;
+}
+.gif-container__gif-item6 {
+  margin-right: 0;
+}
+.lazy-load-image-background  {
+
+  background-color: black;
 }

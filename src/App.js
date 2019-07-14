@@ -9,7 +9,7 @@ class App extends Component {
     data: [],
   };
 
-  getUrl = search => `https://cors-anywhere.herokuapp.com/` + `http://api.giphy.com/v1/gifs/search?q=${search}&api_key=0Hq9k7VDnzYAqDpFZYbLBtblsp20gugA&limit=25`;
+  getUrl = search => `https://cors-anywhere.herokuapp.com/` + `http://api.giphy.com/v1/gifs/search?q=${search}&api_key=0Hq9k7VDnzYAqDpFZYbLBtblsp20gugA&limit=10000`;
 
   getInputValue = () => document.querySelector('.input').value;
 
@@ -20,9 +20,9 @@ class App extends Component {
         <div className="search-wrap">
           <h1>Get your Gifs!</h1>
           <Search
-            urlRequestText={searchedText}
             handlePress={this.handlePress}
-            handleClick={this.handleClick} />
+            handleClick={this.handleClick} 
+            trendingBtn={this.trendingBtn}/>
         </div>
         <GifList setData={data} />
       </div>
@@ -36,7 +36,11 @@ class App extends Component {
       this.getStart(this.getUrl(searchedText));
     }
   };
-
+  trendingBtn = (e) => {
+      e.preventDefault();
+      this.getStart(`http://api.giphy.com/v1/gifs/trending?api_key=0Hq9k7VDnzYAqDpFZYbLBtblsp20gugA&limit=10000`);
+    
+  };
   handleClick = (e) => {
     e.preventDefault();
     const searchedText = this.getInputValue();
