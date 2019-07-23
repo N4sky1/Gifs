@@ -2,11 +2,13 @@ import React, { Component } from 'react';
 import './App.css';
 import Search from './components/Search';
 import GifList from './components/GifList';
+import Popup from './components/Popup';
 
 class App extends Component {
   state = {
     searchedText: '',
     data: [],
+    popup:[]
   };
 
   getUrl = search => `https://cors-anywhere.herokuapp.com/` + `http://api.giphy.com/v1/gifs/search?q=${search}&api_key=0Hq9k7VDnzYAqDpFZYbLBtblsp20gugA&limit=10000`;
@@ -14,7 +16,11 @@ class App extends Component {
   getInputValue = () => document.querySelector('.input').value;
 
   render() {
-    const { data, searchedText } = this.state;
+    const { data, searchedText, popup } = this.state;
+    const popupStyle = {
+      opacity: '1',
+      pointerEvents: 'auto'
+    }
     return (
       <div className="App">
         <div className="search-wrap">
@@ -24,11 +30,22 @@ class App extends Component {
             handleClick={this.handleClick} 
             trendingBtn={this.trendingBtn}/>
         </div>
-        <GifList setData={data} />
+        
+        <GifList setData={data} gifClick={this.gifClick}/>
+        <Popup popup={popup} /> 
       </div>
     );
   }
+  gifClick = (e) => {
+    console.log(e.target);
+    //e = e || window.event;
+    let el = e.target || e.srcElement;
+    const popup = el.id;
+    this.setState(prevState => ({ ...prevState, popup }));
 
+
+  }
+ 
   handlePress = (e) => {
     if (e.key === 'Enter') {
       const searchedText = this.getInputValue();

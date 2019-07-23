@@ -27,7 +27,47 @@ html, body {
 .gif-container__gif-item6 {
   margin-right: 0;
 }
-.lazy-load-image-background  {
+.popup-wrap {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top:0;
+  left: 0;
+  background-color: rgba(0,0,0,0.6);
+  opacity: 0;
+  pointer-events: none;
 
-  background-color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.popup {
+  width: auto;
+  max-width: 90vw;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  background-color: white;
+  z-index: 20;
+}
+.popup__exit {
+  display: flex;
+  justify-content: space-between;
+}
+.popup__empty {
+  width: 1px;
+  height: 1px;
+}
+.popup__text {
+  font-size: 20px;
+  text-align: center;
+}
+.popup__background {
+  position: absolute;
+  top:0;
+  left:0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 10;
 }

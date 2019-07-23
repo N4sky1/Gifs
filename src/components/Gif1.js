@@ -4,11 +4,13 @@ import 'react-lazy-load-image-component/src/effects/opacity.css';
 
 export default class Gif1 extends Component {
 	render() {
+		const {gifClick} = this.props
 		return (
 			<div>
 			{
 				this.props.gif1.map((gif, index)=>
-					<li key = {gif.id} className="gif-container__gif-item1">
+					<li key = {gif.id} className="gif-container__gif-item1"
+					onClick={gifClick} >
 					<LazyLoadImage
 				      alt={"gif"}
 				      height={(gif.images.fixed_height.height * 300 / gif.images.fixed_height.width)}
@@ -16,7 +18,9 @@ export default class Gif1 extends Component {
 				      width={300} 
 				      effect="opacity"
 				      placeholderSrc={"https://media.giphy.com/media/"+gif.id+"/giphy.gif"} 
-				      className="gif-container__gif-img"/>
+				      className="gif-container__gif-img"
+				      id= {gif.id}
+				      />
 					</li>
 				)
 			}

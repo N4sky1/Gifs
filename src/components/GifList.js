@@ -9,7 +9,8 @@ import Gif6 from './Gif6';
 export default class GifList extends Component {
 	
 	render() {
-		console.log(window.screen.availWidth);
+		const {gifClick} = this.props
+		
 		let screenWidth = window.screen.availWidth;
 		let imgWidth = 300;
 		let howManyClasses = Math.floor(screenWidth / imgWidth);
@@ -22,12 +23,12 @@ export default class GifList extends Component {
 			variable = copyArr.splice(0, imgInArray);
 			finalArr.push(variable)
 		}
-		console.log(finalArr)
 
 		return (
 			<div className='gif-container' >
 				{ howManyClasses >= 1 &&
-				<Gif1 gif1={finalArr[0]}/> }
+				<Gif1 gif1={finalArr[0]}
+				gifClick = {gifClick}/> }
 				{ howManyClasses >= 2 &&
 				<Gif2 gif2={finalArr[1]}/> }
 				{ howManyClasses >= 3 &&
@@ -41,7 +42,5 @@ export default class GifList extends Component {
 			</div>
 		)
 	}
-	componentDidMount() {
-		
-	}
+
 }
