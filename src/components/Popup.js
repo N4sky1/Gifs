@@ -5,12 +5,9 @@ export default class Popup extends Component {
 		const {popup, popupCloseClick, popupView, stylePopup} = this.props;
 		
 		return (
-			<div className="popup-wrap" style = {stylePopup}>
+			<div className="popup-wrap" style = {stylePopup} onClick={popupCloseClick} >
 		        <div className="popup">
-		            <div className="popup__exit">
-		                <div className="popup__empty"></div>
-		                <div className="popup__exit-btn" onClick = {popupCloseClick} >X</div>
-		            </div>
+		            <img className="popup__exit-btn" src={require('../img/close.svg')} onClick={popupCloseClick}/>
 		            { popup.length >= 1 &&
 		            <img src={"https://media.giphy.com/media/"+popup+"/giphy.gif"} /> }
 		        </div>
