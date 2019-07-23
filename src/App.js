@@ -8,7 +8,11 @@ class App extends Component {
   state = {
     searchedText: '',
     data: [],
-    popup:[]
+    popup:[],
+    stylePopup: {
+      opacity: '0', 
+      pointerEvents: 'none'
+    }
   };
 
   getUrl = search => `https://cors-anywhere.herokuapp.com/` + `http://api.giphy.com/v1/gifs/search?q=${search}&api_key=0Hq9k7VDnzYAqDpFZYbLBtblsp20gugA&limit=10000`;
@@ -16,8 +20,7 @@ class App extends Component {
   getInputValue = () => document.querySelector('.input').value;
 
   render() {
-    const { data, searchedText, popup } = this.state;
-    let popupView = false;
+    const { data, searchedText, popup, stylePopup } = this.state;
     return (
       <div className="App">
         <div className="search-wrap">
@@ -32,23 +35,29 @@ class App extends Component {
         <Popup 
           popup={popup} 
           popupCloseClick = {this.popupCloseClick}
-          popupView = {this.popupView}
+          stylePopup = {stylePopup}
         /> 
       </div>
     );
   }
   gifClick = (e) => {
-    console.log(e.target);
     //e = e || window.event;
-    let el = e.target || e.srcElement;
-    const popup = el.id;
+    //let el = e.target || e.srcElement;
+    const popup = e.target.id;
     this.setState(prevState => ({ ...prevState, popup }));
-    this.popupView = true;
-    console.log(this.popupView)
+
+    let stylePopup = {
+      opacity: '1', 
+      pointerEvents: 'auto'
+    }
+    this.setState(prevState => ({ ...prevState, stylePopup }));
   }
-  popupCloseClick(e) {
-    this.popupView = false;
-    console.log(this.popupView)
+  popupCloseClick = (e) =>{
+    let stylePopup = {
+      opacity: '0', 
+      pointerEvents: 'none'
+    }
+    this.setState(prevState => ({ ...prevState, stylePopup }));
   }
   handlePress = (e) => {
     if (e.key === 'Enter') {
