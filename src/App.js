@@ -17,10 +17,7 @@ class App extends Component {
 
   render() {
     const { data, searchedText, popup } = this.state;
-    const popupStyle = {
-      opacity: '1',
-      pointerEvents: 'auto'
-    }
+    let popupView = false;
     return (
       <div className="App">
         <div className="search-wrap">
@@ -32,7 +29,11 @@ class App extends Component {
         </div>
         
         <GifList setData={data} gifClick={this.gifClick}/>
-        <Popup popup={popup} /> 
+        <Popup 
+          popup={popup} 
+          popupCloseClick = {this.popupCloseClick}
+          popupView = {this.popupView}
+        /> 
       </div>
     );
   }
@@ -42,10 +43,13 @@ class App extends Component {
     let el = e.target || e.srcElement;
     const popup = el.id;
     this.setState(prevState => ({ ...prevState, popup }));
-
-
+    this.popupView = true;
+    console.log(this.popupView)
   }
- 
+  popupCloseClick(e) {
+    this.popupView = false;
+    console.log(this.popupView)
+  }
   handlePress = (e) => {
     if (e.key === 'Enter') {
       const searchedText = this.getInputValue();
