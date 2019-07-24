@@ -8,7 +8,11 @@ class App extends Component {
   state = {
     searchedText: '',
     data: [],
-    popup:[],
+    popup:{
+      id: '',
+      height: '',
+      width: ''
+    },
     stylePopup: {
       opacity: '0', 
       pointerEvents: 'none'
@@ -40,24 +44,47 @@ class App extends Component {
       </div>
     );
   }
+
   gifClick = (e) => {
     //e = e || window.event;
     //let el = e.target || e.srcElement;
-    const popup = e.target.id;
+     
+    let gifHeight =  e.target.getBoundingClientRect().height;
+    let screenWidth =  window.screen.availWidth;
+    let screenHeight =  window.screen.availHeight;
+    let minScreenValue =  Math.min(screenWidth, screenHeight);
+    let wishfulSize =  screenWidth > 500 ? 0.7 : 0.95;
+    let popupHeight =  (gifHeight > 300) ? (minScreenValue * wishfulSize) : (minScreenValue * wishfulSize * gifHeight / 300);
+    let popupWidth =  (300 / gifHeight * popupHeight);
+    
+    let popup = {
+      id: e.target.id,
+      height: popupHeight,
+      width: popupWidth
+    }
     this.setState(prevState => ({ ...prevState, popup }));
-
     let stylePopup = {
       opacity: '1', 
       pointerEvents: 'auto'
     }
     this.setState(prevState => ({ ...prevState, stylePopup }));
   }
+
+
+  componentDidUpdate() {
+    console.log(this.state.popup)
+  }
+
+
+
   popupCloseClick = (e) =>{
     let stylePopup = {
       opacity: '0', 
       pointerEvents: 'none'
     }
     this.setState(prevState => ({ ...prevState, stylePopup }));
+    //const popup = '';
+   // this.setState(prevState => ({ ...prevState, popup }));
   }
   handlePress = (e) => {
     if (e.key === 'Enter') {

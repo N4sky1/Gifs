@@ -44,15 +44,9 @@ html, body {
 }
 
 .popup {
-  width: auto;
-  max-width: 90vw;
-  height: auto;
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  background-color: white;
   z-index: 20;
   position: relative;
+  margin-right: 4px;
 }
 .popup__exit-btn {
   cursor: pointer;
