@@ -16,15 +16,16 @@ class App extends Component {
     stylePopup: {
       opacity: '0', 
       pointerEvents: 'none'
-    }
+    },
+    preloader: false
   };
 
   getUrl = search => `https://cors-anywhere.herokuapp.com/` + `http://api.giphy.com/v1/gifs/search?q=${search}&api_key=0Hq9k7VDnzYAqDpFZYbLBtblsp20gugA&limit=10000`;
 
-  getInputValue = () => document.querySelector('.input').value;
+  getInputValue = () => document.querySelector('.searchForm__input').value;
 
   render() {
-    const { data, searchedText, popup, stylePopup } = this.state;
+    const { data, searchedText, popup, stylePopup, preloader } = this.state;
     return (
       <div className="App">
         <div className="search-wrap">
@@ -40,9 +41,24 @@ class App extends Component {
           popup={popup} 
           popupCloseClick = {this.popupCloseClick}
           stylePopup = {stylePopup}
+          preloader = {preloader}
         /> 
       </div>
     );
+  }
+
+
+  openPopup=(opacity, pointEvents)=>{
+    let stylePopup = {
+      opacity: opacity, 
+      pointerEvents: pointEvents
+    }
+    this.setState(prevState => ({ ...prevState, stylePopup }));
+  }
+  preloader=(bool)=>{
+    const preloader = bool;
+    this.setState(prevState => ({ ...prevState, preloader }));
+    bool == true ? this.openPopup('1', 'auto') : this.openPopup('0', 'none');
   }
 
   gifClick = (e) => {
@@ -63,53 +79,40 @@ class App extends Component {
       width: popupWidth
     }
     this.setState(prevState => ({ ...prevState, popup }));
-    let stylePopup = {
-      opacity: '1', 
-      pointerEvents: 'auto'
-    }
-    this.setState(prevState => ({ ...prevState, stylePopup }));
+    
+    this.openPopup('1', 'auto')
   }
-
-
-  componentDidUpdate() {
-    console.log(this.state.popup)
-  }
-
-
 
   popupCloseClick = (e) =>{
-    let stylePopup = {
-      opacity: '0', 
-      pointerEvents: 'none'
-    }
-    this.setState(prevState => ({ ...prevState, stylePopup }));
-    //const popup = '';
-   // this.setState(prevState => ({ ...prevState, popup }));
+    this.openPopup('0', 'none')
   }
+
+  inputEvents=()=>{
+    const searchedText = this.getInputValue();
+    this.setState(prevState => ({ ...prevState, searchedText }));
+    this.getStart(this.getUrl(searchedText));
+  }
+
   handlePress = (e) => {
     if (e.key === 'Enter') {
-      const searchedText = this.getInputValue();
-      this.setState(prevState => ({ ...prevState, searchedText }));
-      this.getStart(this.getUrl(searchedText));
+      this.inputEvents()
     }
   };
+
+  handleClick = (e) => {
+    e.preventDefault();
+    this.inputEvents()
+  };
+
   trendingBtn = (e) => {
       e.preventDefault();
       this.getStart(`http://api.giphy.com/v1/gifs/trending?api_key=0Hq9k7VDnzYAqDpFZYbLBtblsp20gugA&limit=10000`);
     
   };
-  handleClick = (e) => {
-    e.preventDefault();
-    const searchedText = this.getInputValue();
-    this.setState(prevState => ({
-      ...prevState,
-      searchedText,
-    }));
-    this.getStart(this.getUrl(searchedText));
-  };
-
 
   getStart = (url) => {
+    this.preloader(true);
+
     const status = function (response) {
       if (response.status !== 200) {
         return Promise.reject(new Error(response.statusText));
@@ -125,11 +128,14 @@ class App extends Component {
       .then(json) // превращаем body из ответа сервера в json
       .then(({data}) => {
         this.setState(prevState => ({ ...prevState, data }));
+        console.log('load')
+        this.preloader(false);
       }) // записываем его в массив
       .catch(function (error) {
         console.log('error', error);
       }); // ошибки связанные с сетью наример связанные с таймаутом
   };
+
 }
 
 export default App;

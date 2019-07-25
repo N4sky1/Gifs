@@ -3,8 +3,9 @@ html, body {
   padding:0;
 }
 .search-wrap {
-  width:215px;
-  margin:0 auto 30px auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .gif-container {
   margin:0;
@@ -67,4 +68,41 @@ html, body {
   width: 100vw;
   height: 100vh;
   z-index: 10;
+}
+.searchForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.searchForm__search {
+  display: flex;
+}
+.searchForm__tranding-btn {
+  margin-top:10px;
+  margin-bottom: 30px;
+}
+.searchForm__go-btn {
+  margin-left: 10px
+}
+.searchForm__button {
+  font-size: 20px;
+  background-color: white;
+  border-radius: 8px;
+  border:1px dashed black;
+  transition: 0.3s;
+}
+.searchForm__button:hover {
+  background-color: black;
+  color:white;
+}
+.searchForm__button:active {
+  background-color: #f1f1f1;
+  color:white;
+}
+.searchForm__input {
+  border:1px dashed black;
+  border-radius: 8px;
+  padding:0 10px;
+  box-sizing: border-box;
+  font-size:17px;
 }
