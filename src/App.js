@@ -84,7 +84,14 @@ class App extends Component {
   }
 
   popupCloseClick = (e) =>{
-    this.openPopup('0', 'none')
+    this.openPopup('0', 'none');
+    let popup = {
+      id: '',
+      height: '',
+      width: ''
+    }
+    this.setState(prevState => ({ ...prevState, popup }));
+
   }
 
   inputEvents=()=>{
